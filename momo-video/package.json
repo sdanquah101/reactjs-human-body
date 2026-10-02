@@ -1,0 +1,20 @@
+{
+  "name": "momo-fraud-film",
+  "version": "1.0.0",
+  "description": "3D education film for the Mobile Money Fraud Hackathon",
+  "scripts": {
+    "audio": "python3 audio/build_audio.py",
+    "render": "node render.mjs"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fontsource/figtree": "^5.3.0",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.56.1"
+  },
+  "private": true,
+  "type": "module"
+}
