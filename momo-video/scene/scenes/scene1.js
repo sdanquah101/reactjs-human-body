@@ -4,8 +4,10 @@ import { makeWorld, PALETTES } from '../lib/world.js';
 import { makeWoman, OUTFITS, walk } from '../lib/character.js';
 import { makeStall, makePhone, makeTrotro } from '../lib/props.js';
 import { track, span, blink, clamp, easeOut } from '../lib/anim.js';
+import { makePuppet, LOOKS } from '../lib/puppet2d.js';
 
-export function build(scene, timeline) {
+export function build(scene, timeline, { mode = '3d' } = {}) {
+  const is2d = mode === '2d';
   const C = timeline.cues;
   makeWorld(scene, PALETTES.dawn);
 
@@ -41,6 +43,18 @@ export function build(scene, timeline) {
   const walker = makeWoman(OUTFITS.walker);
   walker.root.rotation.y = -Math.PI / 2;
   scene.add(walker.root);
+
+  // 2D cut-out versions of the same cast, mounted as billboards
+  const P = {};
+  if (is2d) {
+    for (const [k, look, opt, host] of [['ak', LOOKS.akosua, {}, ak], ['esi', LOOKS.esi, {}, esi], ['porter', LOOKS.porter, { basin: true }, porter], ['walker', LOOKS.walker, {}, walker]]) {
+      P[k] = makePuppet(look, opt);
+      host.root.visible = false;
+      scene.add(P[k].root);
+    }
+    P.ak.root.position.copy(ak.root.position);
+    P.esi.root.position.copy(esi.root.position);
+  }
 
   const bus = makeTrotro();
   bus.group.position.z = 9.2;
@@ -96,6 +110,28 @@ export function build(scene, timeline) {
     walk(porter.rig, porter.root, t, 1.0);
     walker.root.position.set(9 - t * 0.95, 0, 2.6);
     walk(walker.rig, walker.root, t, 1.1, 0.4);
+    if (is2d) {
+      const bob = (ph) => Math.abs(Math.sin((t + ph) * Math.PI * 2 * 0.95)) * 2;
+      P.porter.root.position.copy(porter.root.position);
+      P.walker.root.position.copy(walker.root.position);
+      P.porter.draw({ bob: bob(0), lean: Math.sin(t * 6) * 0.02, armL: { shoulder: 70, elbow: 120 }, armR: { shoulder: 70, elbow: 120 } }, { lid: blink(t, 2.2), smile: 0.2 });
+      P.walker.draw({ bob: bob(0.4), lean: Math.sin(t * 6.4) * 0.02, armL: { shoulder: 10 + Math.sin(t * 6) * 12, elbow: 20 }, armR: { shoulder: 10 - Math.sin(t * 6) * 12, elbow: 20 } }, { lid: blink(t, 0.7), smile: 0.3 });
+      P.esi.draw({ lean: Math.sin(t * 0.7 + 1.3) * 0.015, armL: { shoulder: 20, elbow: 95 + Math.sin(t * 1.5) * 10 }, armR: { shoulder: 6, elbow: 10 } }, { lid: blink(t, 1.1), smile: 0.6 });
+      const sachetUp = L > 0.5;
+      P.ak.draw(
+        {
+          lean: Math.sin(t * 0.7) * 0.015,
+          bob: Math.sin(t * 2.1) * 0.4,
+          yaw: headYaw(t) * 2.2,
+          pitch: -headPitch(t) * 2.5,
+          roll: headYaw(t) * 0.2,
+          // her left arm is screen-right (front); she lifts the sachet with it
+          armL: { shoulder: 10 + L * 140 + R * 25 + arrange * 8, elbow: 20 + L * 30 + Math.sin(t * 9) * 12 * L + R * 50, item: sachetUp ? 'sachet' : null },
+          armR: { shoulder: 10 + Math.sin(t * 2.2 + 1.5) * 6 * (1 - L), elbow: 25 + Math.sin(t * 2.2) * 10 * (1 - L) },
+        },
+        { mouth: m, lid: blink(t), smile: 0.4 + L * 0.5 - surprised * 0.3, brow: L * 0.8 + surprised * 1.2, look: [surprised * 0.9, -surprised * 1.0] }
+      );
+    }
 
     // tro-tro
     const bp = clamp((t - C.trotro.start) / (C.trotro.end - C.trotro.start));
@@ -119,6 +155,7 @@ export function build(scene, timeline) {
     camera.position.set(...shot.pos(t));
     camera.lookAt(new THREE.Vector3(...shot.at(t)));
     camera.updateProjectionMatrix();
+    if (is2d) Object.values(P).forEach((p) => p.face(camera));
 
     renderer.render(scene, camera);
 

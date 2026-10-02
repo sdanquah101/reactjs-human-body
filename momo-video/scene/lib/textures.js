@@ -18,7 +18,11 @@ function tex(c, repeat = [1, 1]) {
 }
 
 /** African wax-print style fabric: concentric rings, dots and leaves. */
-export function waxPrint({ bg, ring, ring2, dot, leaf, seed = 3, size = 512 }, repeat = [2, 2]) {
+export function waxPrint(opts, repeat = [2, 2]) {
+  return tex(waxPrintCanvas(opts), repeat);
+}
+
+export function waxPrintCanvas({ bg, ring, ring2, dot, leaf, seed = 3, size = 512 }) {
   const [c, g] = canvas(size);
   const r = rng(seed);
   g.fillStyle = bg;
@@ -52,11 +56,15 @@ export function waxPrint({ bg, ring, ring2, dot, leaf, seed = 3, size = 512 }, r
     g.fill();
     g.restore();
   }
-  return tex(c, repeat);
+  return c;
 }
 
 /** Kente-like woven stripes. */
 export function kente(colors, repeat = [2, 2], size = 256) {
+  return tex(kenteCanvas(colors, size), repeat);
+}
+
+export function kenteCanvas(colors, size = 256) {
   const [c, g] = canvas(size);
   const n = 8;
   const s = size / n;
@@ -68,7 +76,7 @@ export function kente(colors, repeat = [2, 2], size = 256) {
       if ((i + j) % 2) g.fillRect(i * s, j * s + s * 0.35, s, s * 0.3);
       else g.fillRect(i * s + s * 0.35, j * s, s * 0.3, s);
     }
-  return tex(c, repeat);
+  return c;
 }
 
 export function stripes(colors, n = 12, size = 512) {

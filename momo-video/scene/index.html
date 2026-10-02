@@ -45,7 +45,7 @@
   const camera = new THREE.PerspectiveCamera(40, W / H, 0.05, 600);
   const overlay = makeOverlay(W, H);
   document.body.appendChild(overlay.canvas);
-  const { update } = mod.build(scene, timeline);
+  const { update } = mod.build(scene, timeline, { mode: params.get('mode') || '3d' });
   const frames = Math.round(timeline.duration * timeline.fps);
 
   window.SCENE_INFO = { frames, fps: timeline.fps, duration: timeline.duration };

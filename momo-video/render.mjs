@@ -39,14 +39,15 @@ const browser = await chromium.launch({
 const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
 page.on('console', (m) => console.log('[page]', m.text()));
 page.on('pageerror', (e) => console.error('[page error]', e.message));
-await page.goto(`http://127.0.0.1:${port}/scene/index.html?scene=${name}&capture=1`);
+const mode = opt('mode') || '3d';
+await page.goto(`http://127.0.0.1:${port}/scene/index.html?scene=${name}&mode=${mode}&capture=1`);
 await page.waitForFunction(() => window.SCENE_READY === true, null, { timeout: 120000 });
 const info = await page.evaluate(() => window.SCENE_INFO);
 
 const grab = async (i) => Buffer.from((await page.evaluate((i) => window.renderFrame(i), i)).split(',')[1], 'base64');
 
 if (opt('stills')) {
-  const dir = path.join(ROOT, 'build', name, 'stills');
+  const dir = path.join(ROOT, 'build', name, mode === '3d' ? 'stills' : `stills_${mode}`);
   fs.mkdirSync(dir, { recursive: true });
   for (const f of opt('stills').split(',').map(Number)) {
     const t0 = Date.now();
@@ -57,7 +58,7 @@ if (opt('stills')) {
   const from = Number(opt('from') ?? 0);
   const to = Number(opt('to') ?? info.frames);
   fs.mkdirSync(path.join(ROOT, 'out'), { recursive: true });
-  const out = path.join(ROOT, 'out', opt('out') || `${name}.mp4`);
+  const out = path.join(ROOT, 'out', opt('out') || `${name}${mode === '3d' ? '' : '_' + mode}.mp4`);
   const ff = spawn('ffmpeg', [
     '-y', '-loglevel', 'error',
     '-f', 'image2pipe', '-framerate', String(info.fps), '-c:v', 'mjpeg', '-i', '-',
