@@ -1,184 +1,168 @@
-# "Auntie Akosua's Six Hundred" — script & storyboard
+# "Six Hundred Cedis" — 90-second script
 
-A 3-minute stylized-3D education film for the **Mobile Money Fraud Hackathon — led by women**
+An animated short for the **Mobile Money Fraud Hackathon — led by women**
 (InnoFemme · KNUST, Kumasi · 26–28 November 2026).
 
-**Goal:** show, in plain language, how a typical social-engineering mobile money fraud unfolds
-(Contact → Pressure → Approval → After the loss), how it feels to the person it happens to, and
-three simple things anyone can do. It must work for an audience that includes people who do not
-read well, so the story is carried by voice and pictures; on-screen text is short and repeated
-by the narrator.
+**Form:** Auntie Akosua tells her own story, in first person, straight to us. No outside narrator
+until the final card. One woman, one phone call, one week.
+**Length:** 1:30 · **Format:** 1920×1080, 24 fps · **Language:** English with a few Twi words
+(subtitled); a full Twi version is a straight re-voice.
 
-**Length:** ~3:00 · **Format:** 1920×1080, 24 fps, stereo · **Language:** English (Twi lines optional, see notes)
+**Why first person:** the audience the proposal describes — market women, people on basic phones,
+people who may not read well — trusts a woman like them more than a voice-over. Shame is the reason
+fraud goes unreported (Step 4 in the proposal), so the film's emotional turn is her choosing to speak.
 
 ## Characters
 
-| Character | Who | Voice direction |
+| | Who | Voice |
 |---|---|---|
-| **Auntie Akosua** (late 40s) | Sells sachet water at a roadside stall in Kumasi. Warm, hard-working, trusting. | Warm, lively; becomes anxious, then quiet. |
-| **Ama** (12) | Akosua's daughter, in JHS. | Bright, cheerful. |
-| **"Kwame" the caller** | The fraudster. Never fully seen — a voice and a silhouette. | Polite and friendly at first, then urgent, then pushy. |
-| **Auntie Esi** | Neighbour who sells kenkey next door. | Kind, practical. |
-| **Narrator** | A calm woman's voice. | Clear, unhurried, like a trusted older sister. |
+| **Auntie Akosua** (late 40s) | Sells sachet water on a roadside in Kumasi. Warm, proud, hard-working. | Ghanaian woman, warm, a little husky |
+| **Ama** (12) | Her daughter. Bright. Starts JHS next week. | Girl, cheerful |
+| **The caller** | Never seen clearly: a silhouette, a phone. Polite, then urgent, then pushy. | Young Ghanaian man, smooth |
+| **Auntie Esi** (50s) | Sells kenkey next door. Blunt and kind. | Ghanaian woman, deeper |
 
-## Story at a glance
+## The story in one breath
 
-| # | Time | Fraud step | What happens |
-|---|---|---|---|
-| 1 | 0:00–0:25 | — | Dawn in Kumasi. Akosua opens her stall. Her savings are for Ama's school fees. |
-| 2 | 0:25–0:55 | **1. Contact** | A text says she has received GH¢600. Then a call: "I sent it by mistake." |
-| 3 | 0:55–1:25 | **2. Pressure** | The caller cries, rushes her: hospital bill, "my boss will sack me", "just enter your PIN". |
-| 4 | 1:25–1:45 | **3. Approval** | She enters her PIN. The prompt was a withdrawal. GH¢600 of her own money is gone. |
-| 5 | 1:45–2:15 | **4. After the loss** | Shame. She tells no one. A week later, the same caller reaches Auntie Esi. |
-| 6 | 2:15–2:48 | — | Rewind. This time Akosua stops, hangs up, checks her balance herself, and tells Esi. Three rules. |
-| 7 | 2:48–3:00 | — | Key figures and the hackathon card. |
+Akosua has saved GH¢600 for Ama's school fees, due Friday. A text says she has *received* GH¢600; a
+caller says it was his mistake, his mother is in hospital, please send it back — just enter your PIN.
+She does. The money that leaves is her own. She cannot face Ama, and hides it. Esi notices, and says the
+same thing happened to her last year; nobody warned her either. Akosua decides to be the one who warns
+people. She tells us the three things she wishes she had known.
 
 ---
 
-## Full script
+## Script with timings
 
-### SCENE 1 — Morning in Kumasi (0:00–0:25)
+### 1. "Friday" — 0:00–0:12
 
-*WIDE, DAWN. A low-poly Kumasi roadside: red laterite earth, a tarmac road, painted shopfronts, a
-mango tree. Birds, distant traffic. A tro-tro rattles past and honks. Lower-third: "Kumasi, 6:00 a.m."*
+*Dawn. Kumasi roadside. Akosua opens her stall: umbrella up, cooler open, sachets stacked. Ama, in a
+new school uniform, spins once to show it off, then runs off to school. Akosua watches her go.*
 
-*CRANE DOWN to a small stall under a striped umbrella: a cooler, stacks of sachet water. AUNTIE
-AKOSUA ties her headwrap and arranges sachets.*
+> **AKOSUA (V.O.):** My name is Akosua. I sell pure water on the Kumasi road. For one year I saved
+> six hundred cedis for Ama's school fees. Friday, we pay.
 
-> **NARRATOR:** Every morning, Auntie Akosua sells sachet water by the roadside in Kumasi.
+*Close on her phone on the table: wallet balance **GH¢ 640.00**. She touches the screen, proud.*
 
-*MEDIUM. She lifts a sachet and calls out to the road, waving.*
+### 2. The text — 0:12–0:22
 
-> **AKOSUA:** Pure water! Ice-cold pure water!
+*Mid-morning. Customers. The phone buzzes. CLOSE on screen:*
+`You have received GHS 600.00 from KWAME A. New balance GHS 1,240.00`
 
-*CLOSE on her phone on the table — the wallet screen shows a balance.*
+> **AKOSUA (V.O.):** Then one morning a message came. Six hundred cedis — from someone I did not know.
 
-> **NARRATOR:** Every cedi she saves goes into her mobile money wallet. School fees for Ama. Food for the week.
+*Before she can think, the phone rings. Unknown number. She answers.*
 
-*The phone buzzes and lights up.*
+### 3. The call — 0:22–0:44
 
-**TITLE CARD (2 s):** `Step 1 — Contact`
+*Split screen: Akosua at the stall; on the other side only a silhouette in a dim room, phone to his ear.*
 
-### SCENE 2 — Contact (0:25–0:55)
-
-*CLOSE on phone. SMS slides in:*
-`You have received GHS 600.00 from KWAME ASANTE. Your new balance is GHS 1,240.00.`
-
-*It looks real. It is not from the network — it is an ordinary text from an ordinary number.*
-
-*The phone rings: "Unknown number". Akosua answers.*
-
-> **AKOSUA:** Hello?
+> **CALLER:** Madam, good morning, please, I beg. I sent six hundred cedis to your number by mistake. It is
+> for my mother. She is in the hospital.
 >
-> **CALLER:** Good morning, Madam! Please, I am very sorry to disturb you. I sent six hundred cedis to your number by mistake. It is for my mother's hospital bill.
+> **AKOSUA:** Oh! Sorry. I will send it back now-now.
 >
-> **AKOSUA:** Eh? Six hundred?
+> **CALLER:** God bless you, Madam. I have sent you the prompt. Just enter your PIN and it will go back.
 >
-> **CALLER:** Yes, Madam. Please check your messages. You will see it.
-
-*She looks at the SMS. Her face softens — she wants to help.*
-
-### SCENE 3 — Pressure (0:55–1:25)
-
-**TITLE CARD (2 s):** `Step 2 — Pressure`
-
-*The caller's silhouette appears in a split screen — dark room, glowing phone.*
-
-> **CALLER:** Madam, the hospital is waiting. Please, I will send you a prompt to return it. Just enter your PIN, that's all. Quickly, please.
+> **AKOSUA:** Let me check my balance first—
 >
-> **AKOSUA:** Hmm… let me first check my balance —
+> **CALLER** *(cutting in, urgent)*: Madam, there is no time! They are waiting at the hospital. If you delay,
+> the network will block your line. Please. Your PIN.
+
+*Noise rises around her: a customer waving a coin, a tro-tro horn, the caller's voice. Her hand shakes.*
+
+> **AKOSUA (V.O.):** He was crying. A customer was waiting. Everyone was rushing me. I just wanted to help.
+
+### 4. The PIN — 0:44–0:52
+
+*EXTREME CLOSE-UP. Thumb on the keypad. Four presses: tap, tap, tap, tap. Screen:*
+`Payment of GHS 600.00 to KWAME A. approved. New balance GHS 40.00`
+
+*The line goes dead. All sound drops out. Only her breathing.*
+
+> **AKOSUA:** Hello? …Hello?
+
+> **AKOSUA (V.O.):** There was never any six hundred cedis. The message was fake. The money that went
+> was mine.
+
+### 5. Ama — 0:52–1:05
+
+*Evening. One bulb over the stall. Ama runs in, waving a paper.*
+
+> **AMA:** Mama! Madam says Friday is the last day for fees!
 >
-> **CALLER** *(cutting in, urgent)*: No time, Madam! My mother is lying there! If you delay, they will cancel the money and your account will be blocked!
+> **AKOSUA** *(forcing a smile)*: Ɛyɛ, my dear. We will see.
 
-*Music tightens. The camera pushes in on Akosua. A customer waits at the stall; a tro-tro honks.
-Everything is rushing at her at once.*
+*Ama goes inside. Akosua sits alone. She turns the phone face down on the table.*
 
-> **NARRATOR:** Fraudsters do not break into the system. They break into your trust — and they rush you, so you have no time to think.
+> **AKOSUA (V.O.):** How could I tell her? I was ashamed. So I told nobody.
 
-### SCENE 4 — Approval (1:25–1:45)
+### 6. Esi — 1:05–1:17
 
-**TITLE CARD (2 s):** `Step 3 — Approval`
+*Next morning. Esi puts a cup of tea on Akosua's table and looks at her face.*
 
-*CLOSE on phone. A prompt appears:*
-`Approve payment of GHS 600.00 to KWAME ASANTE? Enter PIN to confirm.`
-
-*Her thumb hovers. She types four digits. Each press is a heavy "click".*
-
-*New message:* `Payment of GHS 600.00 approved. Your new balance is GHS 40.00.`
-
-*The line goes dead. Silence. The street noise fades away.*
-
-> **AKOSUA** *(quietly)*: Hello? …Hello?
-
-> **NARRATOR:** There was never any money sent to her. The first message was fake. The prompt was not a refund — it was a withdrawal from her own wallet. And because she approved it herself, the system saw a normal payment.
-
-### SCENE 5 — After the loss (1:45–2:15)
-
-**TITLE CARD (2 s):** `Step 4 — After the loss`
-
-*EVENING. The stall, lit by a single bulb. Ama runs in, in her school uniform.*
-
-> **AMA:** Mama! Madam says school fees must be paid by Friday!
+> **ESI:** Akosua. Someone called you about "wrong money"?
 >
-> **AKOSUA** *(forcing a smile)*: …Don't worry, my dear. We will see.
-
-*Akosua sits alone. She looks at her phone and turns it face down.*
-
-> **NARRATOR:** Ashamed, she tells no one. And because no one hears about it…
-
-*TIME-LAPSE: a week passes. Next door, AUNTIE ESI's phone buzzes.*
-`You have received GHS 600.00…`
-
-> **NARRATOR:** …the same caller moves on to the next person.
-
-### SCENE 6 — Rewind: what to do (2:15–2:48)
-
-*VHS-style REWIND effect back to Scene 3. The same call. This time Akosua's face changes.*
-
-> **CALLER:** Just enter your PIN, Madam. Quickly!
+> **AKOSUA** *(quietly)*: …Six hundred.
 >
-> **AKOSUA** *(firm)*: No. My PIN is for me alone.
+> **ESI:** Last year — four hundred, me too. I kept quiet. Nobody warned me. Nobody warned you.
 
-*She hangs up. She dials her balance herself — it has not changed. No money arrived.
-She walks over to Esi.*
+*Beat. Akosua lifts her head.*
 
-> **AKOSUA:** Esi! Someone is calling people about "wrong money". Don't mind them, and tell the others.
+> **AKOSUA (V.O.):** That is when I understood. My silence was his best friend.
 
-*Three simple pictograms appear one by one; the narrator reads each.*
+### 7. What I know now — 1:17–1:27
 
-> **NARRATOR:** Remember three things.
-> **One:** Never share or enter your PIN because someone on the phone tells you to.
-> **Two:** Stop. Hang up. Check your balance yourself — not from a text message.
-> **Three:** Tell someone. Report it to your network and warn your family and friends.
+*Daylight. Akosua faces the camera at her stall, Esi beside her. Three short lines, one picture each:*
 
-### SCENE 7 — Close (2:48–3:00)
+> **AKOSUA:** So hear me well.
+> Nobody sends you money "by mistake". Check your balance yourself — not from a text.
+> Your PIN is yours alone. Not for anyone on the phone. Not even for "help".
+> And if they rush you — hang up. Honest people can wait.
 
-*Simple animated figures on a deep-purple background:*
+*She picks up her phone and dials. Esi watches, arms folded, nodding.*
 
-> **NARRATOR:** In 2025, mobile money fraud in Ghana cost four point six million cedis — up thirty-two percent in one year. Most of it happens just like this.
+> **AKOSUA:** And tell somebody. I am telling you.
 
-`GH¢4.6 million — e-money fraud recorded by the Bank of Ghana in 2025 (up 32% from 2024)`
+### 8. Card — 1:27–1:30
 
-> **NARRATOR:** That is why we are bringing people together to stop it.
+`GH¢4.6 million lost to mobile money fraud in Ghana in 2025. Most of it the way Akosua lost hers.`
 
-**END CARD:** `Mobile Money Fraud Hackathon — led by women` · `KNUST, Kumasi · 26–28 November 2026` ·
-`InnoFemme · hack.innofemme.org/momo`
+`Mobile Money Fraud Hackathon — led by women · KNUST, Kumasi · 26–28 November 2026 · InnoFemme`
 
 ---
 
-## Notes for review
+## Word count check
 
-- **Facts.** The figures (GH¢4.6m in 2025, a 32% rise) and the GH¢600 sachet-water seller example come
-  from the proposal (source: Bank of Ghana, *Banks, SDIs and PSPs 2025 Fraud Report*). The three rules
-  are standard consumer advice. Please have someone who knows mobile money operations check them. In
-  particular, the "report it to your network" wording should name the real channel (for example, a
-  short code) if the partners want one.
-- **Branding.** The film says "mobile money" in general terms and uses made-up screens and
-  messages. It does not show any real operator's logo or app. If MTN MoMo endorse it, their
-  branding can be added to the end card with their permission.
-- **Names.** "Kwame Asante" is a made-up name for the fraudster. Change it if it is too close
-  to a real person known to the team.
-- **Language.** Akosua's and Esi's lines can be re-voiced in Twi with English subtitles. That
-  works best with real voice actors.
-- **Voices.** The draft uses free synthetic voices (Piper). For the final film, recordings from
-  Ghanaian voice actors are strongly recommended.
+Spoken words ≈ 250, which is about 1:25 at a natural pace, leaving room for the silent beats
+(the PIN, the phone turned face down).
+
+## Shot list for production (image-to-video, 5–8 s each)
+
+| # | Shot | Source still → motion |
+|---|---|---|
+| 1a | Dawn stall, Ama spins in uniform, runs off | new still (Akosua + Ama) → Kling |
+| 1b | Phone wallet GH¢640 | table plate + code screen |
+| 2a | Phone buzz, fake SMS | table plate + code screen |
+| 2b | Akosua looks down, answers | surprised still → Kling (picks up phone) |
+| 3a | Caller silhouette | new still → Kling (slow push) |
+| 3b | Akosua on phone, worried, dialogue | new still (phone to ear) → OmniHuman per line |
+| 3c | Pressure montage: customer, horn, hand shaking | 2–3 quick stills → Kling |
+| 4a | Thumb on keypad | hand still → Kling |
+| 4b | "Approved" screen, balance GH¢40 | code screen |
+| 4c | Akosua, "Hello?", silence | still → OmniHuman |
+| 5a | Evening, Ama with the paper | new still → Kling + OmniHuman for Ama's line |
+| 5b | Akosua alone, phone face down | new still → Kling |
+| 6 | Esi and Akosua, tea, dialogue | new still (two-shot) → OmniHuman per line |
+| 7 | Akosua to camera, three rules | still → OmniHuman; rule pictograms as overlay |
+| 8 | Card | code |
+
+Roughly 16 shots → about 20 generations with retakes.
+
+## Notes for the team
+
+- **Facts:** GH¢4.6m / 2025 is from the proposal (Bank of Ghana fraud report). The "network will block
+  your line" threat and the "wrong money" script are documented fraud patterns in Ghana.
+- **Twi:** "Ɛyɛ" (it's fine) in scene 5; "now-now" is deliberate Ghanaian English. The whole film can be
+  re-voiced in Twi with English subtitles without changing a single shot.
+- **No operator branding.** Generic "mobile money" screens, no logos.
+- **The three rules** are phrased as what Akosua wishes she had known, not as instructions from above.
