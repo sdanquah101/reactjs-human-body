@@ -1,11 +1,11 @@
 """Assemble the 30-second hackathon advert from generated clips and audio.
 
 Timeline (seconds):
-  0.0 - 9.0   shot A  (market, phone rings, she answers)       + caller line
-  9.0 - 17.0  shot B  (decision point) -> freeze frame + silence
- 17.0 - 30.0  shot C  (workshop)                               + narrator + music
+  0.0 - 9.0   A1 + A2  (market, phone rings, she answers, listens)   + caller line
+  9.0 - 17.0  B        (decision point) -> freeze frame + silence
+ 17.0 - 30.0  C2 + C1  (workshop; ends on the wide frame)           + narrator + music
 
-Inputs (ad/):  clips/A.mp4 clips/B.mp4 clips/C.mp4
+Inputs (ad/):  clips/A1.mp4 A2.mp4 B.mp4 C1.mp4 C2.mp4
                audio/caller.mp3 audio/narrator.mp3 audio/music.mp3
 Output:        ../out/ad_30s.mp4  (1920x1080, 24 fps, stereo AAC)
 """
@@ -80,32 +80,48 @@ def place(buf, sig, at, gain=1.0):
         buf[i:i + n] += sig[:n] * gain
 
 
-def video_edit(a, b, c, dur_a, dur_b, dur_c):
-    """Build the picture: A | B with freeze | C, each conformed to its slot."""
-    seg_a = A_END
-    seg_b_live = FREEZE_AT - A_END
-    seg_b_freeze = B_END - FREEZE_AT
-    seg_c = TOTAL - B_END
-    # Slow a clip down slightly if it is shorter than its slot, rather than freezing early.
-    def fit(src, dst, slot, src_dur, extra=""):
-        rate = min(1.0, src_dur / slot)            # <1 slows the clip
-        vf = f"setpts={1 / rate:.5f}*PTS,fps={FPS},scale={W}:{H}:flags=lanczos{extra}"
-        run(ffm + ["-i", src, "-t", f"{slot:.3f}", "-an", "-vf", vf, "-c:v", "libx264", "-preset", "medium", "-crf", "16", dst])
-    fit(a, "/tmp/seg_a.mp4", seg_a, dur_a)
-    fit(b, "/tmp/seg_b_live.mp4", seg_b_live, min(dur_b, seg_b_live))
-    # freeze: take the last frame of the live part and hold it
-    run(ffm + ["-sseof", "-0.05", "-i", "/tmp/seg_b_live.mp4", "-frames:v", "1", "-update", "1", "/tmp/freeze.png"])
-    run(ffm + ["-loop", "1", "-framerate", str(FPS), "-i", "/tmp/freeze.png", "-t", f"{seg_b_freeze:.3f}",
-               "-vf", f"scale={W}:{H},zoompan=z='min(zoom+0.0004,1.06)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS}",
-               "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", "/tmp/seg_b_freeze.mp4"])
-    fit(c, "/tmp/seg_c.mp4", seg_c, dur_c)
+def conform(src, dst, seconds, speed=1.0, start=0.0):
+    """Cut `seconds` of `src` from `start`, slowed by `speed` (<1 = slower), to 1080p24 silent."""
+    vf = f"setpts={1 / speed:.5f}*PTS,fps={FPS},scale={W}:{H}:flags=lanczos"
+    run(ffm + ["-ss", f"{start:.3f}", "-i", src, "-t", f"{seconds / speed + 0.5:.3f}", "-an", "-vf", vf,
+               "-t", f"{seconds:.3f}", "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", dst])
+
+
+def hold_last_frame(src, dst, seconds, zoom=True):
+    run(ffm + ["-sseof", "-0.05", "-i", src, "-frames:v", "1", "-update", "1", "/tmp/hold.png"])
+    z = f",zoompan=z='min(zoom+0.0004,1.06)':d=1:x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':s={W}x{H}:fps={FPS}" if zoom else f",fps={FPS}"
+    run(ffm + ["-loop", "1", "-framerate", str(FPS), "-i", "/tmp/hold.png", "-t", f"{seconds:.3f}",
+               "-vf", f"scale={W}:{H}{z}", "-c:v", "libx264", "-preset", "medium", "-crf", "16", "-pix_fmt", "yuv420p", dst])
+
+
+def video_edit(clips, durs):
+    """Picture: A1+A2 | B live + freeze | C2 (push-in) + C1 (wide, ends on the clear-wall frame)."""
+    segs = []
+    # --- A (0-9): A1 slightly slowed, then the remainder from A2
+    a1 = min(durs["A1"] / 0.92, 5.6)
+    conform(clips["A1"], "/tmp/s_a1.mp4", a1, speed=0.92); segs.append("/tmp/s_a1.mp4")
+    a2 = A_END - a1
+    conform(clips["A2"], "/tmp/s_a2.mp4", a2, speed=min(1.0, durs["A2"] / a2), start=max(0.0, durs["A2"] - a2 * 0.92)); segs.append("/tmp/s_a2.mp4")
+    # --- B (9-17): live until the freeze, then the held frame
+    b_live = FREEZE_AT - A_END
+    conform(clips["B"], "/tmp/s_b.mp4", b_live, speed=min(1.0, durs["B"] / b_live)); segs.append("/tmp/s_b.mp4")
+    hold_last_frame("/tmp/s_b.mp4", "/tmp/s_bf.mp4", B_END - FREEZE_AT); segs.append("/tmp/s_bf.mp4")
+    # --- C (17-30): C2 then C1, each slowed a little, then a short hold on C1's last (wide) frame
+    c_total = TOTAL - B_END
+    c_each = min(durs["C2"] / 0.82, durs["C1"] / 0.82)
+    conform(clips["C2"], "/tmp/s_c2.mp4", c_each, speed=0.82); segs.append("/tmp/s_c2.mp4")
+    conform(clips["C1"], "/tmp/s_c1.mp4", c_each, speed=0.82); segs.append("/tmp/s_c1.mp4")
+    rest = c_total - 2 * c_each
+    if rest > 0.05:
+        hold_last_frame("/tmp/s_c1.mp4", "/tmp/s_ch.mp4", rest, zoom=False); segs.append("/tmp/s_ch.mp4")
     with open("/tmp/concat.txt", "w") as f:
-        for s in ["/tmp/seg_a.mp4", "/tmp/seg_b_live.mp4", "/tmp/seg_b_freeze.mp4", "/tmp/seg_c.mp4"]:
-            f.write(f"file '{s}'\n")
+        for sg in segs:
+            f.write(f"file '{sg}'\n")
     run(ffm + ["-f", "concat", "-safe", "0", "-i", "/tmp/concat.txt", "-c", "copy", "/tmp/picture.mp4"])
 
 
-def sound_mix(a_src, b_src, c_src):
+def sound_mix(clips):
+    a_src, b_src, c_src = clips["A1"], clips["B"], clips["C1"]
     n = int(TOTAL * SR) + SR
     bus = np.zeros((n, 2))
     mono = lambda y: np.stack([y, y], 1)
@@ -153,11 +169,11 @@ def sound_mix(a_src, b_src, c_src):
 
 
 def main():
-    clips = {k: os.path.join(HERE, "clips", f"{k}.mp4") for k in "ABC"}
+    clips = {k: os.path.join(HERE, "clips", f"{k}.mp4") for k in ["A1", "A2", "B", "C1", "C2"]}
     durs = {k: probe_dur(p) for k, p in clips.items()}
     print("clip durations", durs)
-    video_edit(clips["A"], clips["B"], clips["C"], durs["A"], durs["B"], durs["C"])
-    sound_mix(clips["A"], clips["B"], clips["C"])
+    video_edit(clips, durs)
+    sound_mix(clips)
     os.makedirs(OUT, exist_ok=True)
     out = os.path.join(OUT, "ad_30s.mp4")
     run(ffm + ["-i", "/tmp/picture.mp4", "-i", "/tmp/mix.wav", "-map", "0:v", "-map", "1:a", "-t", str(TOTAL),
