@@ -78,6 +78,27 @@ class Track:
 
 # ---------------------------------------------------------------- voices
 
+LINES_DIR = None  # set per scene: audio/lines/<scene>
+
+
+def load_line(key):
+    """Pre-rendered voice line (ElevenLabs) if present, else None."""
+    if not LINES_DIR:
+        return None
+    for ext in ("wav", "mp3"):
+        f = os.path.join(LINES_DIR, f"{key}.{ext}")
+        if os.path.exists(f):
+            tmp = tempfile.NamedTemporaryFile(suffix=".wav", delete=False).name
+            subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", f, "-ac", "1", "-ar", str(SR), tmp], check=True)
+            _, y = wavfile.read(tmp)
+            os.unlink(tmp)
+            y = y.astype(float) / 32768
+            idx = np.where(np.abs(y) > 0.01)[0]
+            y = y[max(0, idx[0] - 400): idx[-1] + 2400]
+            return y / np.max(np.abs(y)) * 0.9
+    return None
+
+
 def tts(role, text):
     v = VOICES[role]
     model = os.path.join(VOICES_DIR, v["model"] + ".onnx")
@@ -266,7 +287,9 @@ def scene1():
 
     def say(key, role, text, gap_after):
         nonlocal t
-        y = tts(role, text)
+        y = load_line(key)
+        if y is None:
+            y = tts(role, text)
         cues[key] = dict(start=round(t, 3), end=round(t + len(y) / SR, 3))
         lines.append((key, role, text, y, t))
         t += len(y) / SR + gap_after
@@ -330,6 +353,7 @@ if __name__ == "__main__":
     name = sys.argv[1] if len(sys.argv) > 1 else "scene1"
     out_dir = os.path.join(ROOT, "build", name)
     os.makedirs(out_dir, exist_ok=True)
+    LINES_DIR = os.path.join(ROOT, "audio", "lines", name)
     mix, timeline = SCENES[name]()
     wavfile.write(os.path.join(out_dir, "mix.wav"), SR, (mix * 32767).astype(np.int16))
     with open(os.path.join(out_dir, "timeline.json"), "w") as f:

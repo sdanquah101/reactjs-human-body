@@ -209,9 +209,9 @@ export async function build(scene, timeline) {
   }
 
   // ---- shot timing
-  const S2 = 7.25; // close-up: "Pure water!"
-  const S3 = 10.55; // stall reference shot, narrator on savings
-  const S4 = 13.4; // table / phone
+  const S2 = C.a1.start - 0.25; // close-up: "Pure water!"
+  const S3 = C.a1.end + 0.6; // stall reference shot, narrator on savings
+  const S4 = C.n2.start + 3.2; // table / phone
   const S5 = C.ring.start + 1.8; // reaction
   const breathe = (t) => 1 + Math.sin(t * 2.1) * 0.004;
 
