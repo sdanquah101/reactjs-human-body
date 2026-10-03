@@ -121,13 +121,14 @@ def video_edit(clips, durs):
 
 
 def sound_mix(clips):
-    a_src, b_src, c_src = clips["A1"], clips["B"], clips["C1"]
+    a_src, a2_src, b_src, c_src = clips["A1"], clips["A2"], clips["B"], clips["C1"]
     n = int(TOTAL * SR) + SR
     bus = np.zeros((n, 2))
     mono = lambda y: np.stack([y, y], 1)
 
     # Ambience from the generated clips' own audio (no intelligible speech was requested).
     amb_a = load_audio(a_src, start_trim=False)
+    amb_a2 = load_audio(a2_src, start_trim=False)
     amb_b = load_audio(b_src, start_trim=False)
     amb_c = load_audio(c_src, start_trim=False)
     t = np.arange(n) / SR
@@ -136,9 +137,17 @@ def sound_mix(clips):
     env_b = np.clip((t - A_END) / 0.4, 0, 1) * np.clip((FREEZE_AT - t) / 0.6, 0.04, 1) * (t < B_END)
     env_c = np.clip((t - B_END) / 0.8, 0, 1) * (t >= B_END)
     a2 = np.zeros(n); place(a2, amb_a, 0)
+    # A2's own ambience continues the market bed after A1 ends (short crossfade)
+    xf = np.clip((t - (len(amb_a) / SR - 0.5)) / 0.5, 0, 1)
+    a2b = np.zeros(n); place(a2b, amb_a2, len(amb_a) / SR - 0.5)
+    a2 = a2 * (1 - xf) + a2b * xf
     b2 = np.zeros(n); place(b2, amb_b, A_END)
     c2 = np.zeros(n); place(c2, amb_c, B_END)
     bus += mono(a2 * env_a) * 0.9 + mono(b2 * env_b) * 0.7 + mono(c2 * env_c) * 0.25
+    rng = np.random.default_rng(3)
+    tone = sosfilt(butter(2, 400, "low", fs=SR, output="sos"), rng.standard_normal(n)) * 0.02
+    env_tone = np.clip((t - (FREEZE_AT - 1.0)) / 1.0, 0, 1) * (t < B_END)
+    bus += mono(tone * env_tone) * 0.35
 
     # Phone ring (generated clips may also contain one; ours guarantees it is heard).
     ring = ringtone()
